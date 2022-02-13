@@ -398,7 +398,18 @@ origin/HEAD就像一个指针，表示默认分支，你的例子中它指向ori
 
 删掉也是可以的：
 git remote set-head origin -d
+
 ```
+
+```
+// 删除本地分支
+git branch -d localBranchName
+
+// 删除远程分支
+git push origin --delete remoteBranchName
+```
+
+
 
 ## 6、Git config 命令
 
