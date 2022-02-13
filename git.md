@@ -1,4 +1,4 @@
-## 1、git 基本操作
+## 1、Git 基本操作
 
 
 Git 的工作就是创建和保存你项目的快照及与之后的快照进行对比。
@@ -111,7 +111,7 @@ ll
 ssh-keygen -t rsa -C "your@gmail.com"
 ```
 
-> 邮箱与 git he girhub 没有太大关系，随便填。
+> 邮箱与 git he github 没有太大关系，随便填。
 
 #### 2.3. 获取 SSH Key
 
@@ -168,7 +168,7 @@ git remote add origin git@github.com:yangdiankun/test.git
 git push -u origin main
 ```
 
-## 3、Git clone、pull、fetch用法及区别
+## 3、Git clone、pull、fetch、push用法及区别
 
 #### 3.1. git clone
 
@@ -204,7 +204,7 @@ git pull是拉取远程分支更新到本地仓库的操作。事实上，git pu
 git pull <远程主机名> <远程分支名>:<本地分支名>
 ```
 
-举例：将远程主机origin的master分支拉取过来，与本地的branchtest分支合并。
+**举例：将远程主机origin的master分支拉取过来，与本地的branchtest分支合并。**
 
 ```
 git pull origin master:banchtest
@@ -249,25 +249,67 @@ git merge temp                          #合并temp分支到master分支
 git branch -d temp                      #删除temp
 ```
 
-### 4、修改 commit 提交注释
+#### 3.4. git push
 
-#### 1.1. 还没将代码push到远程仓库，还在本地的仓库中
+**git push** 命用于从将本地的分支版本上传到远程并合并。
 
-##### 1.1.1. 修改最后一次注释
+命令格式如下：
+
+```
+git push <远程主机名> <本地分支名>:<远程分支名>
+```
+
+如果本地分支名与远程分支名相同，则可以省略冒号：
+
+```
+git push <远程主机名> <本地分支名>
+```
+
+**举例：以下命令将本地的 master 分支推送到 origin 主机的 master 分支。**
+
+```
+git push origin master
+```
+
+相当于：
+
+```
+git push origin master:master
+```
+
+如果本地版本与远程版本有差异，但又要强制推送可以使用 --force 参数：
+
+```
+git push --force origin master
+```
+
+删除主机的分支可以使用 --delete 参数，以下命令表示删除 origin 主机的 master 分支：
+
+```
+git push origin --delete master
+```
+
+
+
+## 4、修改 commit 提交注释
+
+### 1.1. 还没将代码push到远程仓库，还在本地的仓库中
+
+#### 1.1.1. 修改最后一次注释
 
 如果只想修改最后一次注释（就是最新的一次提交）
 
-`step1: ` 执行以下命令：
+* step1：执行以下命令：
 
 ```
 git commit --amend
 ```
 
-`step2:` 出现有注释的界面（你的注释应该显示在第一行）， 输入`i`进入修改模式，修改好注释后，按`Esc`键 退出编辑模式，输入`:wq`保存并退出。ok，修改完成。
+* step2: 出现有注释的界面（你的注释应该显示在第一行）， 输入`i`进入修改模式，修改好注释后，按`Esc`键 退出编辑模式，输入`:wq`保存并退出。ok，修改完成。
 
-##### 1.1.2. 修改之前的某次注释
+#### 1.1.2. 修改之前的某次注释
 
-`step1:`输入以下命令
+* step1：输入以下命令
 
 ```
 git rebase -i HEAD~2
@@ -275,15 +317,15 @@ git rebase -i HEAD~2
 
 最后的数字2指的是显示到倒数第几次比如这个输入的2就会显示倒数的两次注释（最上面两行）
 
-`step2:` 想修改哪条注释就把哪条注释前面的`pick`换成`edit`。方法就是上面说的编辑方式：`i`->编辑，把`pick`换成`edit`->`Esc`->`:wq`
+* step2： 想修改哪条注释就把哪条注释前面的`pick`换成`edit`。方法就是上面说的编辑方式：`i`->编辑，把`pick`换成`edit`->`Esc`->`:wq`
 
-`step3:` 接下来的步骤Terminal会提示，然后输入以下命令：
+* step3： 接下来的步骤Terminal会提示，然后输入以下命令：
 
 ```
 git commit --amend
 ```
 
-`step4: `修改注释，保存并退出后，输入：
+* step4：修改注释，保存并退出后，输入：
 
 ```
 git rebase --continue
@@ -291,25 +333,25 @@ git rebase --continue
 
 其实这个原理我的理解就是先版本回退到你想修改的某次版本，然后修改当前的commit注释，然后再回到本地最新的版本。
 
-##### 1.1.3. 修改之前的某几次注释
+#### 1.1.3. 修改之前的某几次注释
 
 修改多次的注释其实步骤和上面的一样，不同点在于：
 
-`step1:` 同上。
+* step1： 同上。
 
-`step2:` 你可以将**多个**想修改的commit注释前面的`pick`换成`edit`
+* step2：你可以将**多个**想修改的commit注释前面的`pick`换成`edit`
 
-`step3:` **依次修改**你的注释（顺序是从旧到新），Terminal基本都会提示你接下来的操作，每修改一个注释都要重复上面的3和4步，直到修改完你所选择的所有注释。
+* step3： **依次修改**你的注释（顺序是从旧到新），Terminal基本都会提示你接下来的操作，每修改一个注释都要重复上面的3和4步，直到修改完你所选择的所有注释。
 
-#### 1.2. 已经将代码push到远程仓库
+### 1.2. 已经将代码push到远程仓库
 
-`step1:` 首先，你把最新的版本从远程仓库先pull下来，修改的方法都如上:
+* step1：首先，你把最新的版本从远程仓库先pull下来，修改的方法都如上:
 
 ```
 git pull origin main:main
 ```
 
-`step2:` 最后修改完成后，强制push到远程仓库：
+* step2：最后修改完成后，强制push到远程仓库：
 
 ```
 git push --force origin main
@@ -317,4 +359,66 @@ git push --force origin main
 
 >**注：很重要的一点是，你最好保证在你强制push之前没有人提交代码，如果在你push之前有人提交了新的代码到远程仓库，然后你又强制push，那么会被你的强制更新覆盖！！！**
 
-`step3:` 最后，可以检查一下远程的提交记录~~ 
+* step3：最后，可以检查一下远程的提交记录~~ 
+
+## 5、Git工作区、暂存区和版本库
+
+### 1.1. 基本概念
+
+**工作区：**就是电脑里能看到的目录。
+
+**暂存区：**英文叫stage或index，一般存放在.git目录下的index文件（.git/index）中，所以我们把暂存区有时也叫作索引（index）。
+
+**版本库：**工作区有一个隐藏目录.git，这个不算工作区，而是Git的版本库。
+
+下面这个图展示了工作区、版本库中的暂存区和版本库之间的关系：
+
+![git区](D:\WorkSpace\git_hub\git_learn\leran_note\img\git区.jpg)
+
+* 图中左侧为工作区，右侧为版本库。在版本库中标记为 "index" 的区域是暂存区（stage/index），标记为 "master" 的是 master 分支所代表的目录树。
+
+- 图中我们可以看出此时 "HEAD" 实际是指向 master 分支的一个"游标"。所以图示的命令中出现 HEAD 的地方可以用 master 来替换。
+- 图中的 objects 标识的区域为 Git 的对象库，实际位于 ".git/objects" 目录下，里面包含了创建的各种对象及内容。
+- 当对工作区修改（或新增）的文件执行 **git add** 命令时，暂存区的目录树被更新，同时工作区修改（或新增）的文件内容被写入到对象库中的一个新的对象中，而该对象的ID被记录在暂存区的文件索引中。
+- 当执行提交操作（git commit）时，暂存区的目录树写到版本库（对象库）中，master 分支会做相应的更新。即 master 指向的目录树就是提交时暂存区的目录树。
+- 当执行 **git reset HEAD** 命令时，暂存区的目录树会被重写，被 master 分支指向的目录树所替换，但是工作区不受影响。
+- 当执行 **git rm --cached <file>** 命令时，会直接从暂存区删除文件，工作区则不做出改变。
+- 当执行 **git checkout .** 或者 **git checkout  <file>** 命令时，会用暂存区全部或指定的文件替换工作区的文件。这个操作很危险，会清除工作区中未添加到暂存区中的改动。
+- 当执行 **git checkout HEAD .** 或者 **git checkout HEAD <file>** 命令时，会用 HEAD 指向的 master 分支中的全部或者部分文件替换暂存区和以及工作区中的文件。这个命令也是极具危险性的，因为不但会清除工作区中未提交的改动，也会清除暂存区中未提交的改动。
+
+1.2. 
+
+```
+git tag -a v1.0 -m "修订版本"
+git 
+```
+
+
+
+## 6、Git config 命令
+
+### 1.1. 配置文件的存储位置
+
+这些变量可以被存储在三个不同的位置：
+
+1. `/etc/gitconfig` 文件：包含了适用于系统所有用户和所有库的值。如果你传递参数选项’—system’ 给 git config，它将明确的读和写这个文件。 
+
+2. `~/.gitconfig` 文件 ：具体到你的用户。你可以通过传递—global 选项使Git 读或写这个特定的文件。
+
+3. 位于git目录的config文件 (也就是 `.git/config`) ：无论当前在用的库是什么，特定指向该单一的库。每个级别重写前一个级别的值。因此，在`.git/config`中的值覆盖了在`/etc/gitconfig`中的同一个值。
+
+* **git config --global  alias 重命名**
+
+```
+git config --global alias.dog 'git log --decorate --oneline --graph --all'
+```
+
+* **git config --global user 配置用户信息**
+
+```
+git config --global user.name "ydk"
+git config --global user.email "111"
+```
+
+git config --global 
+
