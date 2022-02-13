@@ -393,7 +393,12 @@ git tag -a v1.0 -m "修订版本"
 git 
 ```
 
+```
+origin/HEAD就像一个指针，表示默认分支，你的例子中它指向origin/master，即origin/master是默认分支。
 
+删掉也是可以的：
+git remote set-head origin -d
+```
 
 ## 6、Git config 命令
 
