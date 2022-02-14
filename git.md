@@ -26,7 +26,7 @@ $ git commit
 * git add .      - 添加文件到暂存区。
 * git commit  - 将暂存区内容添加到仓库中。
 
-#### 1.1. 创建仓库命令
+### 1.1. 创建仓库命令
 
 下表列出了 git 创建仓库的命令：
 
@@ -35,7 +35,7 @@ $ git commit
 | git init  | 初始化仓库                             |
 | git clone | 拷贝一份远程仓库，也就是下载一个项目。 |
 
-#### 1.2. 提交与修改
+### 1.2. 提交与修改
 
 Git 的工作就是创建和保存你的项目的快照及与之后的快照进行对比。
 
@@ -51,14 +51,14 @@ Git 的工作就是创建和保存你的项目的快照及与之后的快照进�
 | git rm     | 删除工作区文件。                         |
 | git mv     | 移动或重命名工作区文件。                 |
 
-#### 1.3. 提交日志
+### 1.3. 提交日志
 
 | 命令             | 说明                                 |
 | ---------------- | ------------------------------------ |
 | git log          | 查看历史提交记录                     |
 | git blame <file> | 以列表形式查看指定文件的历史修改记录 |
 
-#### 1.4. 远程操作
+### 1.4. 远程操作
 
 | 命令       | 说明               |
 | ---------- | ------------------ |
@@ -70,6 +70,8 @@ Git 的工作就是创建和保存你的项目的快照及与之后的快照进�
 参考：
 
 > https://www.runoob.com/git/git-basic-operations.html
+
+### *NOTE:*
 
 ## 2、git 通过 ssh 连接 github
 
@@ -83,7 +85,7 @@ git@github.com:...
 
 > GitHub配置SSH Key的目的是为了帮助我们在通过git提交代码是，不需要繁琐的验证过程，简化操作流程。
 
-#### 2.1. 设置 git 的 user name 和 email
+### 2.1. 设置 git 的 user name 和 email
 
 如果你是第一次使用，或者还没有配置过的话需要操作一下命令，自行替换相应字段。
 
@@ -98,7 +100,7 @@ git config --global user.email "your@email.com"
 >
 > ​           git config xxx：当前项目配置文件有效（）
 
-#### 2.2. 检查是否存在 SSH Key
+### 2.2. 检查是否存在 SSH Key
 
 ```
 cd ~/.ssh
@@ -113,7 +115,7 @@ ssh-keygen -t rsa -C "your@gmail.com"
 
 > 邮箱与 git he github 没有太大关系，随便填。
 
-#### 2.3. 获取 SSH Key
+### 2.3. 获取 SSH Key
 
 ```
 cat id_rsa.pub
@@ -121,7 +123,7 @@ cat id_rsa.pub
 
 拷贝密钥 ssh-rsa 开头
 
-#### 2.4. GitHub 添加 SSH Key
+### 2.4. GitHub 添加 SSH Key
 
 * GitHub点击用户头像，选择setting
 
@@ -129,7 +131,7 @@ cat id_rsa.pub
 
 * 取个名字，把之前拷贝的秘钥复制进去，添加就好啦。
 
-#### 2.5. 验证和修改
+### 2.5. 验证和修改
 
 测试是否成功配置SSH Key
 
@@ -142,7 +144,7 @@ ssh -T git@github.com
 之前已经是https的链接，现在想要用SSH提交怎么办？
 直接修改项目目录下 `.git`文件夹下的`config`文件，将地址修改一下就好了。
 
-#### 2.6. 创建本地仓库并连接 github
+### 2.6. 创建本地仓库并连接 github
 
 * 创建需要管理的文件目录，如下：
 
@@ -168,9 +170,11 @@ git remote add origin git@github.com:yangdiankun/test.git
 git push -u origin main
 ```
 
+### *NOTE:*
+
 ## 3、Git clone、pull、fetch、push用法及区别
 
-#### 3.1. git clone
+### 3.1. git clone
 
 git clone顾名思义就是将其他仓库克隆到本地，**包括被clone仓库的版本变化**。
 
@@ -190,7 +194,7 @@ git clone <版本库url>
 git clone <版本库url> <本地目录名>
 ```
 
-#### 3.2. git pull
+### 3.2. git pull
 
 git pull是拉取远程分支更新到本地仓库的操作。事实上，git pull是相当于从远程仓库获取最新版本，然后再与本地分支merge（合并）。
 
@@ -221,7 +225,7 @@ git merge banchtest
 
 > 相比起来，`git fetch`更安全也更符合实际要求，因为可以在merge前，我们可以查看更新情况，根据实际情况再决定是否合并。
 
-#### 3.3. git fetch 更新远程代码到本地仓库
+### 3.3. git fetch 更新远程代码到本地仓库
 
 理解 fetch 的关键，是理解 FETCH_HEAD，FETCH_HEAD指的是：某个branch在服务器上的最新状态。这个列表保存在 .Git/FETCH_HEAD 文件中，其中每一行对应于远程服务器的一个分支。
 当前分支指向的FETCH_HEAD, 就是这个文件第一行对应的那个分支。
@@ -249,7 +253,7 @@ git merge temp                          #合并temp分支到master分支
 git branch -d temp                      #删除temp
 ```
 
-#### 3.4. git push
+### 3.4. git push
 
 **git push** 命用于从将本地的分支版本上传到远程并合并。
 
@@ -289,13 +293,23 @@ git push --force origin master
 git push origin --delete master
 ```
 
-
+### *NOTE*:
 
 ## 4、修改 commit 提交注释
 
-### 1.1. 还没将代码push到远程仓库，还在本地的仓库中
+amend:修正修订的意思，那么`git commit --amend`这个命令就可以这么理解：对**之前**的commit 提交进行修改。事实上确实如此，不仅可以修改提交的内容，还可以修改commit 信息。
+ **注意：这里的之前指最近的commit，而且没有push到远程**。
 
-#### 1.1.1. 修改最后一次注释
+修改提交的内容分为2种情况：
+
+1. 提交了代码之后,又有新的改动，不想创建两个commit
+2. 发现一个地方改错了，下次提交时不想保留上一次的记录
+
+这时就可以使用`git commit --amend`命令把新的内容添加到之前的commit里面，这个命令没有添加新的提交，而是用新提交取代了原始提交。
+
+### 4.1. 还没将代码push到远程仓库，还在本地的仓库中
+
+#### 4.1.1. 修改最后一次注释
 
 如果只想修改最后一次注释（就是最新的一次提交）
 
@@ -307,7 +321,9 @@ git commit --amend
 
 * step2: 出现有注释的界面（你的注释应该显示在第一行）， 输入`i`进入修改模式，修改好注释后，按`Esc`键 退出编辑模式，输入`:wq`保存并退出。ok，修改完成。
 
-#### 1.1.2. 修改之前的某次注释
+> step1~step2可简写为 `git commit --amend -m "要修改的内容"`
+
+#### 4.1.2. 修改之前的某次注释
 
 * step1：输入以下命令
 
@@ -333,17 +349,15 @@ git rebase --continue
 
 其实这个原理我的理解就是先版本回退到你想修改的某次版本，然后修改当前的commit注释，然后再回到本地最新的版本。
 
-#### 1.1.3. 修改之前的某几次注释
+#### 4.1.3. 修改之前的某几次注释
 
 修改多次的注释其实步骤和上面的一样，不同点在于：
 
 * step1： 同上。
-
 * step2：你可以将**多个**想修改的commit注释前面的`pick`换成`edit`
-
 * step3： **依次修改**你的注释（顺序是从旧到新），Terminal基本都会提示你接下来的操作，每修改一个注释都要重复上面的3和4步，直到修改完你所选择的所有注释。
 
-### 1.2. 已经将代码push到远程仓库
+### 4.2. 已经将代码push到远程仓库
 
 * step1：首先，你把最新的版本从远程仓库先pull下来，修改的方法都如上:
 
@@ -360,6 +374,11 @@ git push --force origin main
 >**注：很重要的一点是，你最好保证在你强制push之前没有人提交代码，如果在你push之前有人提交了新的代码到远程仓库，然后你又强制push，那么会被你的强制更新覆盖！！！**
 
 * step3：最后，可以检查一下远程的提交记录~~ 
+
+### *NOTE:*
+
+1. `git commit --amend`会把暂存区的文件自动加入，可以使用-a把工作区的文件也一起加入。
+2. 可以使用`git commit --amend -m "提交描述"` 修改comment。
 
 ## 5、Git工作区、暂存区和版本库
 
@@ -409,6 +428,8 @@ git branch -d localBranchName
 git push origin --delete remoteBranchName
 ```
 
+### *NOTE:*
+
 
 
 ## 6、Git config 命令
@@ -437,4 +458,8 @@ git config --global user.email "111"
 ```
 
 git config --global 
+
+## *注意事项*
+
+* 执行 `git reset --hard <版本>` 后会清空***工作区***和***缓存区***
 
