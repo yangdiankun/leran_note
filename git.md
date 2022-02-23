@@ -382,7 +382,7 @@ git push --force origin main
 
 ## 5、Git工作区、暂存区和版本库
 
-### 1.1. 基本概念
+### 5.1. 基本概念
 
 **工作区：**就是电脑里能看到的目录。
 
@@ -402,8 +402,8 @@ git push --force origin main
 - 当执行提交操作（git commit）时，暂存区的目录树写到版本库（对象库）中，master 分支会做相应的更新。即 master 指向的目录树就是提交时暂存区的目录树。
 - 当执行 **git reset HEAD** 命令时，暂存区的目录树会被重写，被 master 分支指向的目录树所替换，但是工作区不受影响。
 - 当执行 **git rm --cached <file>** 命令时，会直接从暂存区删除文件，工作区则不做出改变。
-- 当执行 **git checkout .** 或者 **git checkout  <file>** 命令时，会用暂存区全部或指定的文件替换工作区的文件。这个操作很危险，会清除工作区中未添加到暂存区中的改动。
-- 当执行 **git checkout HEAD .** 或者 **git checkout HEAD <file>** 命令时，会用 HEAD 指向的 master 分支中的全部或者部分文件替换暂存区和以及工作区中的文件。这个命令也是极具危险性的，因为不但会清除工作区中未提交的改动，也会清除暂存区中未提交的改动。
+- 当执行 **git checkout .** 或者 **git checkout  <file>** 命令时，会用暂存区全部或指定的文件替换工作区的文件。*这个操作很危险，会清除工作区中未添加到暂存区中的改动。*
+- 当执行 **git checkout HEAD .** 或者 **git checkout HEAD <file>** 命令时，会用 HEAD 指向的 master 分支中的全部或者部分文件替换暂存区和以及工作区中的文件。*这个命令也是极具危险性的，因为不但会清除工作区中未提交的改动，也会清除暂存区中未提交的改动。*
 
 1.2. 
 
@@ -434,7 +434,7 @@ git push origin --delete remoteBranchName
 
 ## 6、Git config 命令
 
-### 1.1. 配置文件的存储位置
+### 6.1. 配置文件的存储位置
 
 这些变量可以被存储在三个不同的位置：
 
@@ -458,6 +458,27 @@ git config --global user.email "111"
 ```
 
 git config --global 
+
+
+7、回退操作（reset）
+
+7.1. 本地库回退到暂存区(local repository -> index)
+
+
+
+7.2. 本地库回退到工作区(local repository -> work space)
+
+
+
+7.3. 缓存区回退到工作区(index-> work space)
+
+1. `git reset HEAD filename`回退文件，将文件从暂存区回退到工作区，也可以使用 `git reset filename`。
+
+*note*：不修改文件内容，相当于把文件move到工作区
+
+1. `git reset HEAD^` ：回退版本，一个^表示一个版本，可以多个，另外也可以使用 `git reset HEAD～n`这种形式。
+
+*note*：回退到到指定版本，包括内容修改、文件的添加。
 
 ## *注意事项*
 
