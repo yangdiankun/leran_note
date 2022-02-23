@@ -484,5 +484,3 @@ git config --global
 
 * 执行 `git reset --hard <版本>` 后会清空***工作区***和***缓存区***
 
-1111
-
